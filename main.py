@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
-from google import genai
+import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 import json
@@ -20,10 +20,11 @@ load_dotenv()
 # Get Gemini API key
 API_KEY = os.getenv("GEMINI_API_KEY")
 
+genai.configure(api_key=API_KEY)
+
 # Initialize Gemini client
 
-client = genai.Client(api_key=API_KEY)
-model = genai.GenerativeModel('gemini-2.0-flash')
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 # System prompt for the chatbot
 system_prompt = """
